@@ -5,12 +5,12 @@
  |   Example traffic controllers, with 2 ramp meters, 1 VSL   | 
  |        controller and 1 route guidance controller.         | 
  *============================================================*
- |                 Simulation Run: 24/10/2024                 | 
- |               14:48:20 - 14:48:34 (0:00:14)                | 
+ |                 Simulation Run: 10/03/2025                 | 
+ |               13:07:20 - 13:08:11 (0:00:51)                | 
  *------------------------------------------------------------*
- | Number of Steps:                                       500 | 
- | Step Length:                                           1.0 | 
- | Avg. Step Duration:                                 0.028s | 
+ | Number of Steps:                               500 (0-500) | 
+ | Step Length:                                          1.0s | 
+ | Avg. Step Duration:                                 0.102s | 
  | Units Type:                              Metric (km, km/h) | 
  | Seed:                                                    1 | 
  *============================================================*
@@ -18,19 +18,34 @@
  *============================================================*
  |                        Vehicle Data                        | 
  *------------------------------------------------------------*
- | Avg. No. Vehicles:                                  736.24 | 
- | Peak No. Vehicles:                                    1211 | 
- | Avg. No. Waiting Vehicles:                           30.13 | 
- | Peak No. Waiting Vehicles:                             103 | 
- | Final No. Vehicles:                                   1211 | 
- | Individual Data:                                        No | 
+ |                       No. Vehicles:                        | 
+ | Average:                                            736.24 | 
+ | Peak:                                                 1211 | 
+ | Final:                                                1211 | 
+ | Overall TTS:                                       368118s | 
  * ---------------------------------------------------------- *
- | Total TTS:                                       368118.0s | 
- | Total Delay:                                      15067.0s | 
+ |                   No. Waiting Vehicles:                    | 
+ | Average:                                             23.43 | 
+ | Peak:                                                   69 | 
+ | Final:                                                  55 | 
+ | Overall TWT:                                        11713s | 
+ * ---------------------------------------------------------- *
+ |                       Vehicle Delay:                       | 
+ | Average:                                           392.71s | 
+ | Peak:                                              788.69s | 
+ | Final:                                              783.1s | 
+ | Cumulative Delay:                               196352.73s | 
+ * ---------------------------------------------------------- *
+ |                    Vehicles to Depart:                     | 
+ | Average:                                           1063.27 | 
+ | Peak:                                                 2227 | 
+ | Final:                                                2227 | 
+ * ---------------------------------------------------------- *
+ | Individual Data:                                        No | 
  *------------------------------------------------------------*
  |                         Trip Data                          | 
  *------------------------------------------------------------*
- | Incomplete Trips:                             1213 (65.2%) | 
+ | Incomplete Trips:                            1213 (65.18%) | 
  | Completed Trips:                               648 (34.8%) | 
  *------------------------------------------------------------*
  |                         Detectors                          | 
