@@ -12,11 +12,11 @@ if __name__ == "__main__":
     # Add "-seed {x}" to the command line to set a seed for the simulation
     sim_seed = "1" if "-seed" not in sys.argv[:-1] else sys.argv[sys.argv.index("-seed")+1]
     seed(int(sim_seed))
-    
+
     # Start the simulation, defining the sumo config files. Add "-gui" to the command line to run with the GUI.
     my_sim.start("a20_scenario/a20.sumocfg", get_individual_vehicle_data=False, gui="-gui" in sys.argv,
                  seed=sim_seed, units="metric") # Units can either be metric (km,kmph)/imperial (mi,mph)/UK (km,mph). All data collected is in these units.
-    
+
     # Add demand from a '.csv' file.
     # my_sim.load_demand("a20_scenario/demand.csv")
 
@@ -30,19 +30,21 @@ if __name__ == "__main__":
     phases = {"phases": {1: ["G", "y", "r"], 2: ["r", "G", "y"]},
               "times":  {1: [ 27,  3,   20], 2: [ 30,  17,  3]},
               "masks":  {1: "1100",          2: "0011"}}
-    
+
     my_sim.set_m_phases({"utsc": phases})
 
     # This is equivalent to: my_sim.set_phases({"utsc": {"phases": ["GGrr", "yyrr", "rrGG", "rryy"], "times": [27, 3, 17, 3]}})
 
     # Add a ramp meter to the junction with ID "crooswijk_meter". The junc_params dict can be used to
-    # define meter specifc parameters (min/max rate, spillback tracking or queue detectors) and flow specific
+    # define meter specifc parameters (min/max rate, ramp edges or queue detectors) and flow specific
     # parameters (inflow/outflow detectors used to calculate in/out flow).
-    my_sim.add_tracked_junctions({"crooswijk_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'queue_detector': "cw_ramp_queue"},
-                                                    'flow_params': {'inflow_detectors': ["cw_ramp_inflow", "cw_rm_upstream"], 'outflow_detectors': ["cw_rm_downstream"]}},
-                                "a13_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'queue_detector': "a13_ramp_queue"},
-                                                'flow_params': {'inflow_detectors': ["a13_ramp_inflow", "a13_rm_upstream"], 'outflow_detectors': ["a13_rm_downstream"]}}})
-    
+    crooswijk_meter = my_sim.add_tracked_junctions({"crooswijk_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'ramp_edges': ["crooswijk_in", "crooswijk_in_2"]},
+                                                    'flow_params': {'inflow_detectors': ["cw_ramp_inflow", "cw_rm_upstream"], 'outflow_detectors': ["cw_rm_downstream"]}}})
+
+    # Add a second ramp meter to the junction with ID "a13_meter", done the same way as above.
+    a13_meter = my_sim.add_tracked_junctions({"a13_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'ramp_edges': ["a13_in"]},
+                                              'flow_params': {'inflow_detectors': ["a13_ramp_inflow", "a13_rm_upstream"], 'outflow_detectors': ["a13_rm_downstream"]}}})
+
     # Add Route Guidance (RG) & Variable Speed Limit (VSL) controllers. RG controllers need a detector or
     # edge that will act as the redirection point and a target edge/route ID to redirect drivers to. It is
     # also possible to define a diversion percent to randomly divert a certain percent of drivers, and a
@@ -87,7 +89,7 @@ if __name__ == "__main__":
     my_sim.add_vehicle_in_functions(add_to_vehicle_arr, parameters={"arr": vehicle_ids})
 
     n, sim_dur, warmup = 1, 500 / my_sim.step_length, 0 / my_sim.step_length
-    
+
     if warmup > 0:
         my_sim.step_through(n_steps=warmup, pbar_max_steps=sim_dur+warmup, keep_data=False)
 
@@ -95,9 +97,9 @@ if __name__ == "__main__":
 
         # Set ramp metering rate.
         if my_sim.curr_step % 50 / my_sim.step_length == 0:
-            my_sim.set_tl_metering_rate(rm_id="crooswijk_meter", metering_rate=randint(1200, 2000))
-            my_sim.set_tl_metering_rate(rm_id="a13_meter", metering_rate=randint(1200, 2000))
-        
+            crooswijk_meter.set_metering_rate(metering_rate=randint(1200, 2000))
+            a13_meter.set_metering_rate(metering_rate=randint(1200, 2000))
+
         # Step through n seconds.
         my_sim.step_through(n_seconds=n, pbar_max_steps=sim_dur+warmup)
 
@@ -108,7 +110,7 @@ if __name__ == "__main__":
             new_veh_idx += 1
 
         if my_sim.curr_step == 100 / my_sim.step_length:
-            my_sim.cause_incident(100, n_vehicles=2, edge_speed=5)
+            my_sim.cause_incident(100, n_vehicles=2, edge_speed=None)
 
         if my_sim.curr_step == 250 / my_sim.step_length:
             # Activate controllers & update UTSC phases.
@@ -125,6 +127,10 @@ if __name__ == "__main__":
             my_sim.controllers["rerouter"].deactivate()
             my_sim.controllers["vsl"].deactivate()
 
+        # Add weather effects between 100-150s.
+        if my_sim.curr_step == 100:
+            my_sim.add_weather(50, strength=0.1, weather_id="Weather Event")
+
     # End the simulation.
     my_sim.end()
 
@@ -132,4 +138,3 @@ if __name__ == "__main__":
     my_sim.save_data("example_data.json")
     my_sim.save_data("example_data.pkl")
     my_sim.print_summary(save_file="example_summary.txt")
-    
