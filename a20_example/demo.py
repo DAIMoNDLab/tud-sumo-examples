@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # Add a ramp meter to the junction with ID "crooswijk_meter". The junc_params dict can be used to
     # define meter specifc parameters (min/max rate, ramp edges or queue detectors) and flow specific
     # parameters (inflow/outflow detectors used to calculate in/out flow).
-    crooswijk_meter = my_sim.add_tracked_junctions({"crooswijk_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'ramp_edges': ["crooswijk_in", "crooswijk_in_2"]},
+    crooswijk_meter = my_sim.add_tracked_junctions({"crooswijk_meter": {'meter_params': {'min_rate': 200, 'max_rate': 2000, 'ramp_edges': ["crooswijk_in"]},
                                                     'flow_params': {'inflow_detectors': ["cw_ramp_inflow", "cw_rm_upstream"], 'outflow_detectors': ["cw_rm_downstream"]}}})
 
     # Add a second ramp meter to the junction with ID "a13_meter", done the same way as above.
