@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-29 17:29:11 by Eclipse SUMO netedit Version v1_15_0+3072-a493b9138de
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="dn_1" lane="e_downstream_0" pos="7.86" period="300.00" file="dn_1.xml"/>
+    <inductionLoop id="dn_2" lane="e_downstream_1" pos="7.86" period="300.00" file="dn_2.xml"/>
+    <inductionLoop id="rm_in" lane="e_ramp_in_0" pos="18.17" period="300.00" file="rm_in.xml"/>
+    <inductionLoop id="up_1" lane="e_upstream_0" pos="159.38" period="300.00" file="up_1.xml"/>
+    <inductionLoop id="up_2" lane="e_upstream_1" pos="159.38" period="300.00" file="up_2.xml"/>
+</additional>

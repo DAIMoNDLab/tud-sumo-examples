@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-29 17:29:11 by Eclipse SUMO netedit Version v1_15_0+3072-a493b9138de
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="onramp_network.sumocfg"/>
+        <additional-files value="detectors.add.xml"/>
+        <route-files value="demand.xml"/>
+        <sumo-net-file value="onramp_network.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="onramp_network.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-33.78,400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":J0_0" function="internal">
+        <lane id=":J0_0_0" index="0" speed="22.22" length="16.14" shape="252.56,-8.06 257.36,-7.56 260.56,-6.46 263.77,-5.36 268.56,-4.86"/>
+        <lane id=":J0_0_1" index="1" speed="22.22" length="16.14" shape="252.56,-4.86 268.56,-4.86"/>
+        <lane id=":J0_0_2" index="2" speed="22.22" length="16.14" shape="252.56,-1.66 268.56,-1.66"/>
+    </edge>
+    <edge id=":J2_0" function="internal">
+        <lane id=":J2_0_0" index="0" speed="22.22" length="0.30" shape="142.50,-17.67 142.78,-17.59"/>
+    </edge>
+    <edge id=":Junc_0" function="internal">
+        <lane id=":Junc_0_0" index="0" speed="22.22" length="10.40" shape="172.06,-9.48 174.97,-8.70 177.05,-8.28 179.20,-8.12 182.31,-8.09"/>
+    </edge>
+    <edge id=":Junc_1" function="internal">
+        <lane id=":Junc_1_0" index="0" speed="22.22" length="10.37" shape="171.93,-4.87 182.30,-4.89"/>
+        <lane id=":Junc_1_1" index="1" speed="22.22" length="10.37" shape="171.93,-1.67 182.30,-1.69"/>
+    </edge>
+
+    <edge id="e_downstream" from="J0" to="B" priority="-1">
+        <lane id="e_downstream_0" index="0" speed="22.22" length="131.44" shape="268.56,-4.86 400.00,-4.80"/>
+        <lane id="e_downstream_1" index="1" speed="22.22" length="131.44" shape="268.56,-1.66 400.00,-1.60"/>
+    </edge>
+    <edge id="e_ramp" from="O" to="J2" priority="-1">
+        <lane id="e_ramp_0" index="0" speed="22.22" length="64.99" shape="79.94,-35.32 142.50,-17.67"/>
+    </edge>
+    <edge id="e_ramp_in" from="J2" to="Junc" priority="-1">
+        <lane id="e_ramp_in_0" index="0" speed="22.22" length="30.38" shape="142.78,-17.59 172.06,-9.48"/>
+    </edge>
+    <edge id="e_upstream" from="A" to="Junc" priority="-1">
+        <lane id="e_upstream_0" index="0" speed="22.22" length="171.93" shape="-0.00,-4.80 171.93,-4.87"/>
+        <lane id="e_upstream_1" index="1" speed="22.22" length="171.93" shape="-0.00,-1.60 171.93,-1.67"/>
+    </edge>
+    <edge id="e_weave" from="Junc" to="J0" priority="-1">
+        <lane id="e_weave_0" index="0" speed="22.22" length="70.26" acceleration="1" shape="182.31,-8.09 252.56,-8.06"/>
+        <lane id="e_weave_1" index="1" speed="22.22" length="70.26" shape="182.30,-4.89 252.56,-4.86"/>
+        <lane id="e_weave_2" index="2" speed="22.22" length="70.26" shape="182.30,-1.69 252.56,-1.66"/>
+    </edge>
+
+    <tlLogic id="J2" type="static" programID="0" offset="0">
+        <phase duration="3000" state="G"/>
+    </tlLogic>
+
+    <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 -0.00,-6.40"/>
+    <junction id="B" type="dead_end" x="400.00" y="0.00" incLanes="e_downstream_0 e_downstream_1" intLanes="" shape="400.00,-6.40 400.00,0.00"/>
+    <junction id="J0" type="priority" x="260.56" y="-0.06" incLanes="e_weave_0 e_weave_1 e_weave_2" intLanes=":J0_0_0 :J0_0_1 :J0_0_2" shape="268.56,-0.06 268.56,-6.46 265.11,-6.70 262.60,-7.29 258.52,-8.83 256.01,-9.42 252.56,-9.66 252.56,-0.06" radius="8.00">
+        <request index="0" response="010" foes="010" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="J2" type="traffic_light" x="142.21" y="-16.09" incLanes="e_ramp_0" intLanes=":J2_0_0" shape="142.36,-16.05 143.21,-19.13 142.93,-19.21 142.06,-16.13">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="Junc" type="priority" x="200.00" y="-0.08" incLanes="e_ramp_in_0 e_upstream_0 e_upstream_1" intLanes=":Junc_0_0 :Junc_1_0 :Junc_1_1" shape="182.30,-0.09 182.31,-9.69 180.19,-9.69 178.62,-9.74 177.33,-9.86 176.05,-10.09 174.53,-10.46 172.49,-11.02 171.63,-7.94 171.93,-6.47 171.93,-0.07" radius="5.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="O" type="dead_end" x="79.51" y="-33.78" incLanes="" intLanes="" shape="79.51,-33.78 80.38,-36.86"/>
+
+    <connection from="e_ramp" to="e_ramp_in" fromLane="0" toLane="0" via=":J2_0_0" tl="J2" linkIndex="0" dir="s" state="O"/>
+    <connection from="e_ramp_in" to="e_weave" fromLane="0" toLane="0" via=":Junc_0_0" dir="s" state="M"/>
+    <connection from="e_upstream" to="e_weave" fromLane="0" toLane="1" via=":Junc_1_0" dir="s" state="M"/>
+    <connection from="e_upstream" to="e_weave" fromLane="1" toLane="2" via=":Junc_1_1" dir="s" state="M"/>
+    <connection from="e_weave" to="e_downstream" fromLane="0" toLane="0" via=":J0_0_0" dir="s" state="m"/>
+    <connection from="e_weave" to="e_downstream" fromLane="1" toLane="0" via=":J0_0_1" dir="s" state="M"/>
+    <connection from="e_weave" to="e_downstream" fromLane="2" toLane="1" via=":J0_0_2" dir="s" state="M"/>
+
+    <connection from=":J0_0" to="e_downstream" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J0_0" to="e_downstream" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from=":J0_0" to="e_downstream" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from=":J2_0" to="e_ramp_in" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Junc_0" to="e_weave" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Junc_1" to="e_weave" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":Junc_1" to="e_weave" fromLane="1" toLane="2" dir="s" state="M"/>
+
+</net>

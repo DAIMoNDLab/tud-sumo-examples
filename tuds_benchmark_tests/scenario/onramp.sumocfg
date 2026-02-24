@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-29 17:29:11 by Eclipse SUMO sumo Version v1_15_0+3072-a493b9138de
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="onramp_network.net.xml"/>
+        <route-files value="demand.xml"/>
+        <additional-files value="detectors.add.xml"/>
+    </input>
+
+    <time>
+        <step-length value="1.0"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="1.0"/>
+    </processing>
+
+</configuration>

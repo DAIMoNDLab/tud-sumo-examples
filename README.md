@@ -1,11 +1,13 @@
-# TUD-SUMO Example
+# TUD-SUMO Examples & Benchmark Tests
 
-There are 2 different example scenarios included:
+There are 2 different example scenarios included for testing TUD-SUMO:
 
 1. **_Basic Scenario_**: Acts as an integrity check to ensure both SUMO and TUD-SUMO are installed and run correctly.
 2. **_A20 Scenario_**: A complex scenario of the A20 in Rotterdam, with multiple controllers and events. To show the gui, run with the command line flag `-gui` and use `-seed {x}` to run with a specific seed.
 
 The scenarios can be run with either `basic_scenario/demo.py` or `a20_scenario/demo.py`. The networks used in each scenario are shown below.
+
+The benchmark tests, copmaring TUD-SUMO and standard TraCI, can be found in the `tuds_benchmark_tests` file, along with a detailed description of the tests and results. 
 
 The full documentation can be found here: [tud-sumo.github.io/docs/](https://tud-sumo.github.io/docs/)
 
