@@ -93,20 +93,17 @@ def run_test_4():
     )
 
     prev_rate = MAX_RATE
-    while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
+    while sim.is_running() and sim.curr_step + CTRL_INT <= MAX_SIM_DUR:
 
-        sim.step_through()
+        sim.step_through(n_steps=CTRL_INT)
 
-        if sim.curr_step % CTRL_INT == 0 and sim.curr_step > 0:
-            curr_occupancy = (
-                sim.get_interval_detector_data(
-                    ["dn_1", "dn_2"], "occupancies", CTRL_INT
-                )
-                * 100
-            )
-            rate = get_metering_rate(prev_rate, curr_occupancy, O_CR, K_R)
-            sim.set_tl_metering_rate("J2", rate)
-            prev_rate = rate
+        curr_occupancy = (
+            sim.get_interval_detector_data(["dn_1", "dn_2"], "occupancies", CTRL_INT)
+            * 100
+        )
+        rate = get_metering_rate(prev_rate, curr_occupancy, O_CR, K_R)
+        sim.set_tl_metering_rate("J2", rate)
+        prev_rate = rate
 
     sim.end()
 
@@ -126,15 +123,15 @@ def run_test_5():
     sim = Simulation("TUD-SUMO test 5", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
 
-    while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
-        sim.step_through()
+    sim.step_through(n_steps=INCIDENT_START)
 
-        if sim.curr_step == INCIDENT_START:
-            veh_id = random.choice(sim.get_geometry_vals(VEH_LOC, "vehicle_ids"))
+    veh_id = random.choice(sim.get_geometry_vals(VEH_LOC, "vehicle_ids"))
 
-            sim.cause_incident(
-                INCIDENT_DUR, vehicle_ids=veh_id, edge_speed=15, position=VEH_POS
-            )
+    sim.cause_incident(
+        INCIDENT_DUR, vehicle_ids=veh_id, edge_speed=15, position=VEH_POS
+    )
+
+    sim.step_through(n_steps=MAX_SIM_DUR - INCIDENT_START)
 
     sim.end()
 
