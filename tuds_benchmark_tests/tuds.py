@@ -14,12 +14,10 @@ def run_test_1():
     """
     Simple run of the on-ramp network simulation.
     """
-    sim = Simulation("TUD-SUMO test 1")
+    sim = Simulation("TUD-SUMO test 1", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
 
-    while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
-        sim.step_through()
-
+    sim.step_through(n_steps=MAX_SIM_DUR)
     sim.end()
 
     stats_file = f"{outputs_loc}test_1/stats.txt"
@@ -33,12 +31,10 @@ def run_test_2():
     """
     Creating floating-car data from a simulation.
     """
-    sim = Simulation("TUD-SUMO test 2")
+    sim = Simulation("TUD-SUMO test 2", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=True, seed=RND_SEED)
 
-    while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
-        sim.step_through()
-
+    sim.step_through(n_steps=MAX_SIM_DUR)
     sim.end()
 
     t_outputs_loc = f"{outputs_loc}test_2/"
@@ -56,15 +52,13 @@ def run_test_3():
     """
     Generating space-time diagrams.
     """
-    sim = Simulation("TUD-SUMO test 3")
+    sim = Simulation("TUD-SUMO test 3", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
 
     edges = ["e_upstream", "e_weave", "e_downstream"]
     sim.add_tracked_edges(edges)
 
-    while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
-        sim.step_through()
-
+    sim.step_through(n_steps=MAX_SIM_DUR)
     sim.end()
 
     t_outputs_loc = f"{outputs_loc}test_3/"
@@ -91,7 +85,7 @@ def run_test_4():
     """
     Running on-ramp scenario with ALINEA active.
     """
-    sim = Simulation("TUD-SUMO test 4")
+    sim = Simulation("TUD-SUMO test 4", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
 
     sim.add_tracked_junctions(
@@ -129,7 +123,7 @@ def run_test_5():
     """
     On-ramp network scenario with an incident occuring.
     """
-    sim = Simulation("TUD-SUMO test 5")
+    sim = Simulation("TUD-SUMO test 5", verbose=False)
     sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
 
     while sim.is_running() and sim.curr_step < MAX_SIM_DUR:
