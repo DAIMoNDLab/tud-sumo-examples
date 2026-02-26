@@ -14,7 +14,7 @@ if __name__ == "__main__":
     seed(int(sim_seed))
 
     # Start the simulation, defining the sumo config files. Add "-gui" to the command line to run with the GUI.
-    my_sim.start("a20_scenario/a20.sumocfg", get_individual_vehicle_data=False, gui="-gui" in sys.argv,
+    my_sim.start("a20_scenario/a20.sumocfg", get_fc_data=False, gui="-gui" in sys.argv,
                  seed=sim_seed, units="metric") # Units can either be metric (km,kmph)/imperial (mi,mph)/UK (km,mph). All data collected is in these units.
 
     # Add demand from a '.csv' file.
