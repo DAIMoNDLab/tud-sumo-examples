@@ -3,6 +3,7 @@ import sys
 
 from tud_sumo.simulation import Simulation
 from tud_sumo.plot import Plotter
+from tud_sumo.helpers import print_summary
 
 if __name__ == "__main__":
 
@@ -16,9 +17,6 @@ if __name__ == "__main__":
     # Start the simulation, defining the sumo config files. Add "-gui" to the command line to run with the GUI.
     my_sim.start("a20_scenario/a20.sumocfg", get_fc_data=False, gui="-gui" in sys.argv,
                  seed=sim_seed, units="metric") # Units can either be metric (km,kmph)/imperial (mi,mph)/UK (km,mph). All data collected is in these units.
-
-    # Add demand from a '.csv' file.
-    # my_sim.load_demand("a20_scenario/demand.csv")
 
     # Add a tracked junction to the intersection with ID "utsc", which will track signal phases/times.
     my_sim.add_tracked_junctions({"utsc": {"flow_params": {"inflow_detectors": ["utsc_n_in_1", "utsc_n_in_2", "utsc_w_in", "utsc_e_in"],
@@ -137,4 +135,4 @@ if __name__ == "__main__":
     # Save the simulation data & print a summary, which is also saved.
     my_sim.save_data("example_data.json")
     my_sim.save_data("example_data.pkl")
-    my_sim.print_summary(save_file="example_summary.txt")
+    print_summary("example_data.pkl", save_file="example_summary.txt")
