@@ -5,16 +5,16 @@ from tud_sumo.simulation import Simulation
 import matplotlib.pyplot as plt
 import numpy as np
 
-SCENARIO_CFG = "scenario/onramp.sumocfg"
-RND_SEED, MAX_SIM_DUR = 1, 2000
+SCENARIO_CONFIG = "scenario/onramp.sumocfg"
+RANDOM_SEED, MAX_SIM_DURATION = 1, 2000
 
 # TEST 4
-CTRL_INT, K_R, O_CR = 60, 80, 8
+CONTROL_INTERVAL, K_R, O_CR = 60, 80, 8
 MIN_RATE, MAX_RATE = 200, 2000
 
 # TEST 5
-INCIDENT_START, INCIDENT_DUR = 1000, 100
-VEH_LOC, VEH_POS = "e_weave", 0.8
+INCIDENT_START, INCIDENT_DURATION = 1000, 100
+VEHICLE_LOCATION, VEHICLE_POSITION = "e_weave", 0.8
 
 # PLOTS
 plt_labels = {
@@ -261,7 +261,7 @@ def plot_all_results(base_res, tuds_res, output_loc="results/"):
     plot_barchart(
         base_data,
         tuds_data,
-        ["runtime_s", "cpu_avg_percent", "peak_rss_mb", "complexity", "loc", "api_calls"],
+        ["complexity", "loc", "api_calls", "peak_rss_mb", "runtime_s", "cpu_avg_percent"],
         "TUD-SUMO and Standard TraCI Benchmark Comparison",
         f"{output_loc}benchmark_comparison.png"
     )

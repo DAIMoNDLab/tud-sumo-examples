@@ -5,7 +5,7 @@ from utils import *
 import random
 
 outputs_loc = "outputs/tuds/"
-random.seed(RND_SEED)
+random.seed(RANDOM_SEED)
 
 
 @include_test
@@ -15,9 +15,9 @@ def run_test_1():
     Simple run of the on-ramp network simulation.
     """
     sim = Simulation("TUD-SUMO test 1", verbose=False)
-    sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
+    sim.start(SCENARIO_CONFIG, get_fc_data=False, seed=RANDOM_SEED)
 
-    sim.step_through(n_steps=MAX_SIM_DUR)
+    sim.step_through(n_steps=MAX_SIM_DURATION)
     sim.end()
 
     stats_file = f"{outputs_loc}test_1/stats.txt"
@@ -32,9 +32,9 @@ def run_test_2():
     Creating floating-car data from a simulation.
     """
     sim = Simulation("TUD-SUMO test 2", verbose=False)
-    sim.start(SCENARIO_CFG, get_fc_data=True, seed=RND_SEED)
+    sim.start(SCENARIO_CONFIG, get_fc_data=True, seed=RANDOM_SEED)
 
-    sim.step_through(n_steps=MAX_SIM_DUR)
+    sim.step_through(n_steps=MAX_SIM_DURATION)
     sim.end()
 
     t_outputs_loc = f"{outputs_loc}test_2/"
@@ -53,12 +53,12 @@ def run_test_3():
     Generating space-time diagrams.
     """
     sim = Simulation("TUD-SUMO test 3", verbose=False)
-    sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
+    sim.start(SCENARIO_CONFIG, get_fc_data=False, seed=RANDOM_SEED)
 
     edges = ["e_upstream", "e_weave", "e_downstream"]
     sim.add_tracked_edges(edges)
 
-    sim.step_through(n_steps=MAX_SIM_DUR)
+    sim.step_through(n_steps=MAX_SIM_DURATION)
     sim.end()
 
     t_outputs_loc = f"{outputs_loc}test_3/"
@@ -86,19 +86,19 @@ def run_test_4():
     Running on-ramp scenario with ALINEA active.
     """
     sim = Simulation("TUD-SUMO test 4", verbose=False)
-    sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
+    sim.start(SCENARIO_CONFIG, get_fc_data=False, seed=RANDOM_SEED)
 
     sim.add_tracked_junctions(
         {"J2": {"meter_params": {"min_rate": MIN_RATE, "max_rate": MAX_RATE}}}
     )
 
     prev_rate = MAX_RATE
-    while sim.is_running() and sim.curr_step + CTRL_INT <= MAX_SIM_DUR:
+    while sim.is_running() and sim.curr_step + CONTROL_INTERVAL <= MAX_SIM_DURATION:
 
-        sim.step_through(n_steps=CTRL_INT)
+        sim.step_through(n_steps=CONTROL_INTERVAL)
 
         curr_occupancy = (
-            sim.get_interval_detector_data(["dn_1", "dn_2"], "occupancies", CTRL_INT)
+            sim.get_interval_detector_data(["dn_1", "dn_2"], "occupancies", CONTROL_INTERVAL)
             * 100
         )
         rate = get_metering_rate(prev_rate, curr_occupancy, O_CR, K_R)
@@ -121,17 +121,17 @@ def run_test_5():
     On-ramp network scenario with an incident occuring.
     """
     sim = Simulation("TUD-SUMO test 5", verbose=False)
-    sim.start(SCENARIO_CFG, get_fc_data=False, seed=RND_SEED)
+    sim.start(SCENARIO_CONFIG, get_fc_data=False, seed=RANDOM_SEED)
 
     sim.step_through(n_steps=INCIDENT_START)
 
-    veh_id = random.choice(sim.get_geometry_vals(VEH_LOC, "vehicle_ids"))
+    veh_id = random.choice(sim.get_geometry_vals(VEHICLE_LOCATION, "vehicle_ids"))
 
     sim.cause_incident(
-        INCIDENT_DUR, vehicle_ids=veh_id, edge_speed=15, position=VEH_POS
+        INCIDENT_DURATION, vehicle_ids=veh_id, edge_speed=15, position=VEHICLE_POSITION
     )
 
-    sim.step_through(n_steps=MAX_SIM_DUR - INCIDENT_START)
+    sim.step_through(n_steps=MAX_SIM_DURATION - INCIDENT_START)
 
     sim.end()
 

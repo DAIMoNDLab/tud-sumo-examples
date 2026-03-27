@@ -12,9 +12,9 @@ outputs_loc = "outputs/base/"
 default_sumoCMD = [
     "sumo",
     "-c",
-    SCENARIO_CFG,
+    SCENARIO_CONFIG,
     "--seed",
-    str(RND_SEED),
+    str(RANDOM_SEED),
     "--no-step-log",
     "true",
     "--no-warnings",
@@ -27,7 +27,7 @@ if path_tools in sys.path:
 else:
     sys.path.append(path_tools)
 
-random.seed(RND_SEED)
+random.seed(RANDOM_SEED)
 
 
 @include_test
@@ -44,7 +44,7 @@ def run_test_1():
     curr_step = 0
     while (
         traci.simulation.getMinExpectedNumber() > 0
-        and traci.simulation.getTime() < MAX_SIM_DUR
+        and traci.simulation.getTime() < MAX_SIM_DURATION
     ):
         traci.simulationStep()
         curr_step += 1
@@ -68,7 +68,7 @@ def run_test_2():
     curr_step = 0
     while (
         traci.simulation.getMinExpectedNumber() > 0
-        and traci.simulation.getTime() < MAX_SIM_DUR
+        and traci.simulation.getTime() < MAX_SIM_DURATION
     ):
         traci.simulationStep()
         curr_step += 1
@@ -92,7 +92,7 @@ def run_test_3():
     curr_step = 0
     while (
         traci.simulation.getMinExpectedNumber() > 0
-        and traci.simulation.getTime() < MAX_SIM_DUR
+        and traci.simulation.getTime() < MAX_SIM_DURATION
     ):
         traci.simulationStep()
         curr_step += 1
@@ -155,7 +155,7 @@ def run_test_4():
     curr_step, occupancy_vals = 0, []
     while (
         traci.simulation.getMinExpectedNumber() > 0
-        and traci.simulation.getTime() < MAX_SIM_DUR
+        and traci.simulation.getTime() < MAX_SIM_DURATION
     ):
         traci.simulationStep()
         curr_step += 1
@@ -173,7 +173,7 @@ def run_test_4():
         )
         occupancy_vals.append(step_occ)
 
-        if curr_step % CTRL_INT == 0 and curr_step > 0:
+        if curr_step % CONTROL_INTERVAL == 0 and curr_step > 0:
             curr_occupancy = sum(occupancy_vals) / len(occupancy_vals)
             rate = get_metering_rate(prev_rate, curr_occupancy, O_CR, K_R)
             prev_rate, occupancy_vals = rate, []
@@ -184,8 +184,8 @@ def run_test_4():
                 traci.trafficlight.setRedYellowGreenState("J2", "G")
                 active = False
             else:
-                vehicles_per_ci = (rate / 3600) * CTRL_INT
-                cycle_length = CTRL_INT / vehicles_per_ci
+                vehicles_per_ci = (rate / 3600) * CONTROL_INTERVAL
+                cycle_length = CONTROL_INTERVAL / vehicles_per_ci
                 r_time, active = cycle_length - 2, True
 
         if active:
@@ -224,13 +224,13 @@ def run_test_5():
     curr_step = 0
     while (
         traci.simulation.getMinExpectedNumber() > 0
-        and traci.simulation.getTime() < MAX_SIM_DUR
+        and traci.simulation.getTime() < MAX_SIM_DURATION
     ):
         traci.simulationStep()
         curr_step += 1
 
         if curr_step == INCIDENT_START:
-            veh_id = random.choice(traci.edge.getLastStepVehicleIDs(VEH_LOC))
+            veh_id = random.choice(traci.edge.getLastStepVehicleIDs(VEHICLE_LOCATION))
 
             edge_idx = traci.vehicle.getRouteIndex(veh_id)
             next_edge = traci.vehicle.getRoute(veh_id)[edge_idx + 1]
@@ -239,13 +239,13 @@ def run_test_5():
             traci.vehicle.setStop(
                 vehID=veh_id,
                 edgeID=next_edge,
-                pos=VEH_POS,
+                pos=VEHICLE_POSITION,
                 laneIndex=lane_idx,
-                duration=INCIDENT_DUR,
+                duration=INCIDENT_DURATION,
             )
             set_edge_speed(next_edge, 15)
 
-        if curr_step == INCIDENT_START + INCIDENT_DUR:
+        if curr_step == INCIDENT_START + INCIDENT_DURATION:
             set_edge_speed(next_edge, 80)
 
     traci.close()
