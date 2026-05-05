@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-29 17:29:11 by Eclipse SUMO netedit Version v1_15_0+3072-a493b9138de
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="car" maxSpeed="22.22" vClass="private" color="red"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="ab_1" type="car" begin="0.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="100.00" vehsPerHour="1000.00"/>
+    <flow id="ab_2" type="car" begin="0.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="100.00" vehsPerHour="1000.00"/>
+    <flow id="ob_1" type="car" begin="0.00" departSpeed="max" from="e_ramp" to="e_downstream" end="2000.00" vehsPerHour="500.00"/>
+    <flow id="ab_3" type="car" begin="100.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="200.00" vehsPerHour="1000.00"/>
+    <flow id="ab_4" type="car" begin="100.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="200.00" vehsPerHour="1000.00"/>
+    <flow id="ab_5" type="car" begin="200.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="300.00" vehsPerHour="1000.00"/>
+    <flow id="ab_6" type="car" begin="200.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="300.00" vehsPerHour="1000.00"/>
+    <flow id="ab_7" type="car" begin="300.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="400.00" vehsPerHour="1000.00"/>
+    <flow id="ab_8" type="car" begin="300.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="400.00" vehsPerHour="1000.00"/>
+    <flow id="ab_01" type="car" begin="400.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="1600.00" vehsPerHour="1500.00"/>
+    <flow id="ab_02" type="car" begin="400.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="1600.00" vehsPerHour="1500.00"/>
+    <flow id="ab_10" type="car" begin="1600.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="1800.00" vehsPerHour="1000.00"/>
+    <flow id="ab_9" type="car" begin="1600.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="1800.00" vehsPerHour="1000.00"/>
+    <flow id="ab_11" type="car" begin="1800.00" departLane="0" departSpeed="max" arrivalLane="0" from="e_upstream" to="e_downstream" end="2000.00" vehsPerHour="1000.00"/>
+    <flow id="ab_12" type="car" begin="1800.00" departLane="1" departSpeed="max" arrivalLane="1" from="e_upstream" to="e_downstream" end="2000.00" vehsPerHour="1000.00"/>
+</routes>
